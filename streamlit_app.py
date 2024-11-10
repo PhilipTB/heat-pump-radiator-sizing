@@ -7,8 +7,8 @@ import pandas as pd
 import streamlit as st
 
 # Show app title and description.
-st.set_page_config(page_title="Support tickets", page_icon="🎫")
-st.title("🎫 Support tickets")
+st.set_page_config(page_title="Add rooms", page_icon="🎫")
+st.title("🎫 Add room maybe")
 st.write(
     """
     This app shows how you can build an internal tool in Streamlit. Here, we are 
@@ -50,7 +50,7 @@ if "df" not in st.session_state:
     # Generate the dataframe with 100 rows/tickets.
     data = {
         "ID": [f"TICKET-{i}" for i in range(1100, 1000, -1)],
-        "Room": "Random Room",
+        "Room": "Random Room and more",
         "Issue": np.random.choice(issue_descriptions, size=100),
         "Status": np.random.choice(["Open", "In Progress", "Closed"], size=100),
         "Priority": np.random.choice(["High", "Medium", "Low"], size=100),
@@ -128,9 +128,12 @@ edited_df = st.data_editor(
             required=True,
         ),
     },
+    num_rows= "dynamic",
     # Disable editing the ID and Date Submitted columns.
     disabled=["ID", "Date Submitted"],
 )
+
+print ('Philip is checking debugging')
 
 # Show some metrics and charts about the ticket.
 st.header("Statistics")
