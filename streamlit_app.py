@@ -1,14 +1,18 @@
 import datetime
 import random
-
 import altair as alt
 import numpy as np
 import pandas as pd
 import streamlit as st
 
+
+
+
+
+
 # Show app title and description.
 st.set_page_config(page_title="Add rooms", page_icon="🎫")
-st.title("🎫 Add room maybe")
+st.title("🎫 Add room maybe six times")
 st.write(
     """
     This app shows how you can build an internal tool in Streamlit. Here, we are 
@@ -50,9 +54,10 @@ if "df" not in st.session_state:
     # Generate the dataframe with 100 rows/tickets.
     data = {
         "ID": [f"TICKET-{i}" for i in range(1100, 1000, -1)],
-        "Room": "Random Room and more",
+        "Room": "Missing Room",
+        "My Room": "No More",
         "Issue": np.random.choice(issue_descriptions, size=100),
-        "Status": np.random.choice(["Open", "In Progress", "Closed"], size=100),
+        "Status": np.random.choice(["ok", "Open", "In Progress", "Closed"], size=100),
         "Priority": np.random.choice(["High", "Medium", "Low"], size=100),
         "Date Submitted": [
             datetime.date(2023, 6, 1) + datetime.timedelta(days=random.randint(0, 182))
@@ -65,6 +70,9 @@ if "df" not in st.session_state:
     # page runs). This ensures our data is persisted when the app updates.
     st.session_state.df = df
 
+dwn_url='https://drive.google.com/uc?id=' + '16xs7XYqGOTbnj1n0IY5JpxQ4NvmhEb_-'
+db = pd.read_csv(dwn_url, sep=',', on_bad_lines='skip')
+st.dataframe(db)
 
 # Show a section to add a new ticket.
 st.header("Add a ticket")
@@ -99,7 +107,7 @@ if submitted:
     st.session_state.df = pd.concat([df_new, st.session_state.df], axis=0)
 
 # Show section to view and edit existing tickets in a table.
-st.header("Existing tickets")
+st.header("Existing tickets Philip")
 st.write(f"Number of tickets: `{len(st.session_state.df)}`")
 
 st.info(
@@ -128,7 +136,7 @@ edited_df = st.data_editor(
             required=True,
         ),
     },
-    num_rows= "dynamic",
+    # num_rows= "dynamic",
     # Disable editing the ID and Date Submitted columns.
     disabled=["ID", "Date Submitted"],
 )
